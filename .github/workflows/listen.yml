@@ -1,0 +1,40 @@
+name: TVU Go listener
+
+# This file goes in your repo at:  .github/workflows/listen.yml
+on:
+  schedule:
+    - cron: '0 */4 * * *'   # every 4 hours (times are UTC)
+  workflow_dispatch:          # adds a "Run workflow" button so you can trigger it by hand
+
+permissions:                  # required for Pages publishing
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-publish:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Run the listening agent
+        env:
+          # Optional: only used if you add the secret (see step 4 in the guide).
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+        run: |
+          python tvu_listener.py --hours 48 --competitors --out public
+          mv public/dashboard.html public/index.html   # Pages serves index.html
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: public
+
+      - id: deploy
+        uses: actions/deploy-pages@v4
