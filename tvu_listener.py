@@ -17,8 +17,8 @@ Triage:
                                     so the agent works out of the box.
 
 Usage:
-  python tvu_listener.py                 # last 2880h, ./tvu_out/
-  python tvu_listener.py --hours 2880 --competitors
+  python tvu_listener.py                 # last 24h, ./tvu_out/
+  python tvu_listener.py --hours 24 --competitors
   python tvu_listener.py --no-llm        # force heuristic scoring
 
 No third-party packages required (standard library only).
