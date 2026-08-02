@@ -17,8 +17,8 @@ Triage:
                                     so the agent works out of the box.
 
 Usage:
-  python tvu_listener.py                 # last 72h, ./tvu_out/
-  python tvu_listener.py --hours 24 --competitors
+  python tvu_listener.py                 # last 2880h, ./tvu_out/
+  python tvu_listener.py --hours 2880 --competitors
   python tvu_listener.py --no-llm        # force heuristic scoring
 
 No third-party packages required (standard library only).
@@ -39,7 +39,7 @@ from datetime import datetime, timezone, timedelta
 # --------------------------------------------------------------------------- #
 # CONFIG — tune these for TVU Go
 # --------------------------------------------------------------------------- #
-BRAND_QUERIES = ['"TVU Go"', "TVUGo", '"TVU Networks"']
+BRAND_QUERIES = ['"TVU Go"', "TVUGo", '"TVU Networks"', "TVU"]
 # Context words that make a bare "TVU" mention likely relevant (heuristic use)
 CONTEXT_WORDS = ["stream", "irl", "twitch", "kick", "youtube", "bonding",
                  "disconnect", "backpack", "bitrate", "isx", "multistream", "go live"]
